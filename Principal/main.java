@@ -1,9 +1,51 @@
 package Principal;
+import java.util.Scanner;
 
 public class Main {
+
+    static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
        
-        // oi duda
+        Hotel hotel = new Hotel("Pousada do Sol e Mar");
+        int opcao;
+
+        do {
+            System.out.println();
+            System.out.println("Escolha uma opção:");
+            System.out.println("1 - Cadastrar quarto"); 
+            System.out.println("2 - Fazer reserva");
+            System.out.println("3 - Cancelar reserva");
+            System.out.println("4 - Listar quartos");
+            System.out.println("5 - Consultar quarto");       
+            System.out.print("0 - Sair: ");  
+            System.out.print("Digite a opção desejada: ");   
+
+            opcao = scanner.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    hotel.cadastrarQuarto();
+                    break;
+                case 2:
+                    hotel.fazerReserva();
+                    break;
+                case 3:
+                    hotel.cancelarReserva();
+                    break;
+                case 4:
+                    hotel.listarQuartos();
+                    break;
+                case 5:
+                    hotel.consultarQuarto();
+                    break;
+                case 0:
+                    System.out.println("Saindo do programa...");
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+
+        } while (opcao != 0);
 
     }
 }
