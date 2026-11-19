@@ -2,6 +2,7 @@ package funcoes;
 
 import java.util.List;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Hotel {
@@ -47,20 +48,46 @@ public class Hotel {
     //                           Listar Quartos
     // ====================================================================
 
+    
     public void listarQuartos() {
 
-        System.out.println("\n----- Lista de Quartos -----");
+        System.out.println("\n--- Lista de Quartos ---");
 
         if (quartos.isEmpty()) {
-            System.out.println("Nenhum quarto cadastrado.");
-            return;
+        System.out.println("Nenhum quarto cadastrado.");
+        return;
         }
+
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         for (int i = 0; i < quartos.size(); i++) {
-            System.out.println(quartos.get(i));
+
+            Quarto quarto = quartos.get(i);
+
+            System.out.println("\n" + quarto);
+
+            boolean encontrouReserva = false;
+
+            for (int j = 0; j < reservas.size(); j++) {
+
+                Reserva reserva = reservas.get(j);
+
+                if (reserva.getQuarto().equals(quarto)) {
+
+                    encontrouReserva = true;
+
+                    System.out.println("  Reservado de " + reserva.getDataEntrada().format(formato) + " até " + reserva.getDataSaida().format(formato));
+            }
+        }
+
+        if (!encontrouReserva) {
+            System.out.println("  Sem reservas cadastradas.");
         }
     }
+}
 
+
+    //                        Fazer Reserva
     // ====================================================================
 
     public void fazerReserva() {
@@ -86,6 +113,11 @@ public class Hotel {
 
     LocalDate entrada = Leitura.lerData("Data de entrada (dd/MM/yyyy): ");
     LocalDate saida = Leitura.lerData("Data de saída (dd/MM/yyyy): ");
+
+    if (entrada.isBefore(LocalDate.now())) {
+    System.out.println("Não é possível fazer reservas no passado!");
+    return;
+}
 
     if (!entrada.isBefore(saida)) {
         System.out.println("A data de saída deve ser posterior à entrada!");
@@ -115,7 +147,7 @@ public class Hotel {
 }
 
 
-
+//=========================================================================
 
 
 

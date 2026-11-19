@@ -1,37 +1,39 @@
-package Principal;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+package Principal;
 
 import funcoes.Leitura;
 import funcoes.Hotel;
-
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Main {
 
-    
     public static void main(String[] args) {
 
         LocalDateTime hoje = LocalDateTime.now();
-        DateTimeFormatter FormatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        System.out.println(hoje.format(FormatoData));
-       
+
+        DateTimeFormatter formatoData =
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+        System.out.println(hoje.format(formatoData));
+
         Hotel hotel = new Hotel("Pousada do Sol e Mar");
         int opcao;
 
         do {
             System.out.println();
-            System.out.println("===== MENU =====");
+            System.out.println("====================");
+            System.out.println("|  MENU PRINCIPAL  |");
+            System.out.println("====================");
             System.out.println("Escolha uma opção:");
-            System.out.println("1 - Cadastrar quarto"); 
+            System.out.println("1 - Cadastrar quarto");
             System.out.println("2 - Fazer reserva");
             System.out.println("3 - Cancelar reserva");
             System.out.println("4 - Listar quartos");
-            System.out.println("5 - Consultar quarto");       
-            System.out.println("0 - Sair: ");  
+            System.out.println("5 - Consultar quarto");
+            System.out.println("0 - Sair");
+
             opcao = Leitura.lerInteiro("Escolha uma opção: ", 0);
 
             switch (opcao) {
