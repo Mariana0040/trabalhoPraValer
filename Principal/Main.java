@@ -1,4 +1,4 @@
-package Principal;
+package principal;
 
 import funcoes.Leitura;
 import funcoes.Hotel;
