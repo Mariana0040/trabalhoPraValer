@@ -8,13 +8,22 @@ import funcoes.Leitura;
 
 public class Hotel {
 
+
+
+    @SuppressWarnings ("unused")
     private String nome;
     private List<Quarto> quartos;
+
+
 
     public Hotel(String nome) {
         this.nome = nome;
         this.quartos = new ArrayList<>();
     }
+
+
+    //                           Cadastro de Quarto
+    // ===================================================================
 
     public void cadastrarQuarto() {
 
@@ -37,9 +46,27 @@ public class Hotel {
         System.out.println(novoQuarto);
     }
 
+    //                           Listar Quartos
+    // ====================================================================
 
+    public void listarQuartos() {
+
+        System.out.println("\n--- Lista de Quartos ---");
+
+        if (quartos.isEmpty()) {
+            System.out.println("Nenhum quarto cadastrado.");
+            return;
+        }
+
+        for (int i = 0; i < quartos.size(); i++) {
+            System.out.println(quartos.get(i));
+        }
+    }
+
+    // ====================================================================
+
+    public void consultarQuarto() {}
     public void fazerReserva() {}
     public void cancelarReserva() {}
-    public void listarQuartos() {}
-    public void consultarQuarto() {}
+
 }
