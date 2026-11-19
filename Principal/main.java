@@ -11,13 +11,14 @@ public class Main {
 
         do {
             System.out.println();
+            System.out.println("===== MENU =====");
             System.out.println("Escolha uma opção:");
             System.out.println("1 - Cadastrar quarto"); 
             System.out.println("2 - Fazer reserva");
             System.out.println("3 - Cancelar reserva");
             System.out.println("4 - Listar quartos");
             System.out.println("5 - Consultar quarto");       
-            System.out.print("0 - Sair: ");  
+            System.out.println("0 - Sair: ");  
             System.out.print("Digite a opção desejada: ");   
 
             opcao = scanner.nextInt();
@@ -39,10 +40,10 @@ public class Main {
                     hotel.consultarQuarto();
                     break;
                 case 0:
-                    System.out.println("Saindo do programa...");
+                    System.out.println("\nSaindo do programa...");
                     break;
                 default:
-                    System.out.println("Opção inválida. Tente novamente.");
+                    System.out.println("\nOpção inválida. Tente novamente.");
             }
 
         } while (opcao != 0);
