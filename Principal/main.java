@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import funcoes.Leitura;
+import funcoes.Hotel;
 
 
 import java.time.LocalDateTime;

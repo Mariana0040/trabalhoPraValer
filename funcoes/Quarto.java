@@ -3,6 +3,8 @@ package funcoes;
 import java.util.Objects;
 
 public class Quarto {
+    //                       cadastro de quarto
+    // ===================================================================
 
     private int numero;
     private int capacidade;
@@ -27,7 +29,22 @@ public class Quarto {
     }
 
 
-    // listar quartos
+
+    //                    listar quartos
+    // ===================================================================
+    
+    private boolean disponivel = true;
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
+    
+
+
     @Override
     public String toString() {
         return "Quarto: " + numero +

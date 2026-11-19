@@ -1,9 +1,31 @@
-
 package funcoes;
 
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Leitura {
+
+//                          RESERVA
+
+    public static LocalDate lerData(String mensagem) {
+
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    while (true) {
+        System.out.print(mensagem);
+
+        try {
+            return LocalDate.parse(scanner.nextLine(), formato);
+
+        } catch (DateTimeParseException e) {
+            System.out.println("Data inválida! Use o formato dd/MM/aaaa.");
+        }
+    }
+}
+
+//                  CONFERIR NUMERO DIGITADO PELO USUARIO
 
     private static Scanner scanner = new Scanner(System.in);
 
@@ -27,6 +49,8 @@ public class Leitura {
         }
     }
 
+
+    //                 CONFERIR VALOR DO QUARTO
     public static double lerDouble(String mensagem, double minimo) {
 
         while (true) {
