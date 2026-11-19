@@ -1,18 +1,18 @@
 package funcoes;
 
+import java.time.format.DateTimeFormatter;
+import arquivo.Arquivo;
 import java.util.List;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Hotel {
 
-    @SuppressWarnings ("unused")
+    @SuppressWarnings("unused")
     private String nome;
     private List<Quarto> quartos;
     private List<Reserva> reservas;
-
-
 
     public Hotel(String nome) {
         this.nome = nome;
@@ -20,8 +20,7 @@ public class Hotel {
         this.reservas = new ArrayList<>();
     }
 
-
-    //                           Cadastro de Quarto
+    // Cadastro de Quarto
     // ===================================================================
 
     public void cadastrarQuarto() {
@@ -30,7 +29,6 @@ public class Hotel {
         int numero = Leitura.lerInteiro("Número do quarto: ", 1);
         int capacidade = Leitura.lerInteiro("Capacidade do quarto: ", 1);
         double valorDiaria = Leitura.lerDouble("Valor da diária: R$ ", 0.01);
-
 
         Quarto novoQuarto = new Quarto(numero, capacidade, valorDiaria);
 
@@ -45,17 +43,16 @@ public class Hotel {
         System.out.println(novoQuarto);
     }
 
-    //                           Listar Quartos
+    // Listar Quartos
     // ====================================================================
 
-    
     public void listarQuartos() {
 
         System.out.println("\n--- Lista de Quartos ---");
 
         if (quartos.isEmpty()) {
-        System.out.println("Nenhum quarto cadastrado.");
-        return;
+            System.out.println("Nenhum quarto cadastrado.");
+            return;
         }
 
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -76,83 +73,98 @@ public class Hotel {
 
                     encontrouReserva = true;
 
-                    System.out.println("  Reservado de " + reserva.getDataEntrada().format(formato) + " até " + reserva.getDataSaida().format(formato));
+                    System.out.println("  Reservado de " + reserva.getDataEntrada().format(formato) + " até "
+                            + reserva.getDataSaida().format(formato));
+                }
+            }
+
+            if (!encontrouReserva) {
+                System.out.println("  Sem reservas cadastradas.");
             }
         }
-
-        if (!encontrouReserva) {
-            System.out.println("  Sem reservas cadastradas.");
-        }
     }
-}
 
-
-    //                        Fazer Reserva
+    // Fazer Reserva
     // ====================================================================
 
     public void fazerReserva() {
 
-    System.out.println("\n--- Fazer Reserva ---");
+        System.out.println("\n--- Fazer Reserva ---");
 
-    int numero = Leitura.lerInteiro("Número do quarto: ", 1);
+        int numero = Leitura.lerInteiro("Número do quarto: ", 1);
 
-    Quarto quartoEncontrado = null;
+        Quarto quartoEncontrado = null;
 
-    for (int i = 0; i < quartos.size(); i++) {
+        for (int i = 0; i < quartos.size(); i++) {
 
-        if (quartos.get(i).getNumero() == numero) {
-            quartoEncontrado = quartos.get(i);
-            break;
-        }
-    }
-
-    if (quartoEncontrado == null) {
-        System.out.println("Quarto não encontrado!");
-        return;
-    }
-
-    LocalDate entrada = Leitura.lerData("Data de entrada (dd/MM/yyyy): ");
-    LocalDate saida = Leitura.lerData("Data de saída (dd/MM/yyyy): ");
-
-    if (entrada.isBefore(LocalDate.now())) {
-    System.out.println("Não é possível fazer reservas no passado!");
-    return;
-}
-
-    if (!entrada.isBefore(saida)) {
-        System.out.println("A data de saída deve ser posterior à entrada!");
-        return;
-    }
-
-    for (int i = 0; i < reservas.size(); i++) {
-
-        Reserva reservaExistente = reservas.get(i);
-
-        if (reservaExistente.getQuarto().equals(quartoEncontrado)) {
-            boolean conflito =
-                    entrada.isBefore(reservaExistente.getDataSaida())
-                    && saida.isAfter(reservaExistente.getDataEntrada());
-
-            if (conflito) {
-                System.out.println("Quarto já reservado nesse período!");
-                return;
+            if (quartos.get(i).getNumero() == numero) {
+                quartoEncontrado = quartos.get(i);
+                break;
             }
         }
+
+        if (quartoEncontrado == null) {
+            System.out.println("Quarto não encontrado!");
+            return;
+        }
+
+        LocalDate entrada = Leitura.lerData("Data de entrada (dd/MM/yyyy): ");
+        LocalDate saida = Leitura.lerData("Data de saída (dd/MM/yyyy): ");
+
+        if (entrada.isBefore(LocalDate.now())) {
+            System.out.println("Não é possível fazer reservas no passado!");
+            return;
+        }
+
+        if (!entrada.isBefore(saida)) {
+            System.out.println("A data de saída deve ser posterior à entrada!");
+            return;
+        }
+
+        for (int i = 0; i < reservas.size(); i++) {
+
+            Reserva reservaExistente = reservas.get(i);
+
+            if (reservaExistente.getQuarto().equals(quartoEncontrado)) {
+                boolean conflito = entrada.isBefore(reservaExistente.getDataSaida())
+                        && saida.isAfter(reservaExistente.getDataEntrada());
+
+                if (conflito) {
+                    System.out.println("Quarto já reservado nesse período!");
+                    return;
+                }
+            }
+        }
+        Reserva novaReserva = new Reserva(quartoEncontrado, entrada, saida);
+
+        reservas.add(novaReserva);
+
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        DateTimeFormatter formatoDataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+        String dados = "========================================\n" +
+                "       POUSADA DO SOL E MAR\n" +
+                "          REGISTRO DE RESERVA\n" +
+                "========================================\n\n" +
+                "Quarto: " + quartoEncontrado.getNumero() + "\n\n" +
+                "Data de entrada: " + entrada.format(formato) + "\n" +
+                "Data de saída:   " + saida.format(formato) + "\n" +
+                "Reserva realizada em: " +
+                LocalDateTime.now().format(formatoDataHora) + "\n" +
+                "----------------------------------------";
+
+        Arquivo.salvar(dados);
+
+        System.out.println("Reserva realizada com sucesso!");
     }
-    Reserva novaReserva = new Reserva(quartoEncontrado, entrada, saida);
 
-    reservas.add(novaReserva);
+    // =========================================================================
 
-    System.out.println("Reserva realizada com sucesso!");
-}
+    public void consultarQuarto() {
+    }
 
-
-//=========================================================================
-
-
-
-
-    public void consultarQuarto() {}
-    public void cancelarReserva() {}
+    public void cancelarReserva() {
+    }
 
 }
