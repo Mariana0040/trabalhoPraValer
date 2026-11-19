@@ -3,12 +3,20 @@ import java.util.Scanner;
 
 import funcoes.Leitura;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Main {
 
     
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+
+         LocalDateTime hoje = LocalDateTime.now();
+        DateTimeFormatter FormatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        System.out.println(hoje.format(FormatoData));
+
        
         Hotel hotel = new Hotel("Pousada do Sol e Mar");
         int opcao;
