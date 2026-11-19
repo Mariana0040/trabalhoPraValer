@@ -1,10 +1,14 @@
 package Principal;
 import java.util.Scanner;
 
+import funcoes.Leitura;
+
 public class Main {
 
-    static Scanner scanner = new Scanner(System.in);
+    
     public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
        
         Hotel hotel = new Hotel("Pousada do Sol e Mar");
         int opcao;
@@ -19,9 +23,7 @@ public class Main {
             System.out.println("4 - Listar quartos");
             System.out.println("5 - Consultar quarto");       
             System.out.println("0 - Sair: ");  
-            System.out.print("Digite a opção desejada: ");   
-
-            opcao = scanner.nextInt();
+            opcao = Leitura.lerInteiro("Escolha uma opção: ", 0);
 
             switch (opcao) {
                 case 1:
@@ -40,13 +42,15 @@ public class Main {
                     hotel.consultarQuarto();
                     break;
                 case 0:
-                    System.out.println("\nSaindo do programa...");
+                    System.out.println("\nSaindo do programa...\n");
                     break;
                 default:
-                    System.out.println("\nOpção inválida. Tente novamente.");
+                    System.out.println("\nOpção inválida. Tente novamente.\n");
             }
 
         } while (opcao != 0);
 
+
+        scanner.close();
     }
 }
